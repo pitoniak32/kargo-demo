@@ -1,0 +1,7 @@
+[providers]
+keychain = { type = "keychain", service = "fnox-argo-kargo" }
+
+[secrets]
+KARGO_PASSWORD = { provider = "keychain", value = "KARGO_PASSWORD" }
+KARGO_HASHED_PASSWORD = { provider = "keychain", value = "KARGO_HASHED_PASSWORD" }
+KARGO_SIGNING_KEY = { provider = "keychain", value = "KARGO_SIGNING_KEY" }

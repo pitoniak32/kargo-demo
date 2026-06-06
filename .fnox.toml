@@ -2,6 +2,7 @@
 keychain = { type = "keychain", service = "fnox-argo-kargo" }
 
 [secrets]
-KARGO_PASSWORD = { provider = "keychain", value = "KARGO_PASSWORD" }
-KARGO_HASHED_PASSWORD = { provider = "keychain", value = "KARGO_HASHED_PASSWORD" }
-KARGO_SIGNING_KEY = { provider = "keychain", value = "KARGO_SIGNING_KEY" }
+GITHUB_APP_CLIENT_ID= { provider = "keychain", value = "GITHUB_APP_CLIENT_ID" }
+GITHUB_APP_INSTALLATION_ID= { provider = "keychain", value = "GITHUB_APP_INSTALLATION_ID" }
+GITHUB_APP_PRIVATE_KEY= { provider = "keychain", value = "GITHUB_APP_PRIVATE_KEY" }
+GITHUB_PAT= { provider = "keychain", value = "GITHUB_PAT" }

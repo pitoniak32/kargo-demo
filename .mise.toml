@@ -6,6 +6,11 @@ kubectl = '1.36.1'
 AUTH0_DOMAIN = 'https://dev-tk84hwot6vevuifn.us.auth0.com/'
 AUTH0_CLIENT_ID = 'r2I5JxV8xZHUULOcQMkm0ubokNnrbJNp'
 
+GITHUB_AUTH_TOKEN = {
+  value = "{{ exec(command='gh auth token', cache_key='gh_auth_token_user', cache_duration='1h') }}",
+  redact = true
+}
+
 [tasks.setup-all]
 depends = [
   'setup-k3d',
@@ -50,8 +55,8 @@ helm upgrade --install kargo \
   --namespace kargo \
   --create-namespace \
   --set api.host="kargo.localhost" \
-  --set api.adminAccount.passwordHash="$(fnox get KARGO_HASHED_PASSWORD)" \
-  --set api.adminAccount.tokenSigningKey="$(fnox get KARGO_SIGNING_KEY)" \
+  --set api.adminAccount.enabled="false" \
+  --set api.secretManagementEnabled="false" \
   --set api.oidc.enabled="true" \
   --set api.oidc.dex.enabled="false" \
   --set api.oidc.issuerURL="{{env.AUTH0_DOMAIN}}" \
@@ -65,4 +70,9 @@ helm upgrade --install kargo \
 # makes it so 'https://kargo.localhost' works without portforward
 kubectl -n kargo apply -f traefik-manifests.yml
 kubectl -n kargo get ingressroutes.traefik.io,serverstransports.traefik.io
+'''
+
+[tasks.setup-project]
+run = '''
+envsubst < example-project/project.yml | kubectl apply -f -
 '''
